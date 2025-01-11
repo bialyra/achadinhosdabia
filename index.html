@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Achadinhos da Bia</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #ffe6f0; /* Fundo rosa claro */
+            color: #4a004d; /* Texto roxo escuro */
+        }
+
+        header {
+            background-color: #ff99cc; /* Rosa médio */
+            padding: 20px;
+            text-align: center;
+            font-size: 1.8em;
+            font-weight: bold;
+            color: #fff;
+            position: relative;
+        }
+
+        header img {
+            position: absolute;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            height: 50px;
+        }
+
+        .search-bar {
+            margin: 20px auto;
+            max-width: 600px;
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .search-bar input {
+            flex: 1;
+            padding: 10px;
+            border: 2px solid #ff99cc;
+            border-radius: 5px;
+            font-size: 1em;
+        }
+
+        .search-bar button {
+            padding: 10px 20px;
+            background-color: #d4006b;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 1em;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .search-bar button:hover {
+            background-color: #ff0066;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+
+        .product-card {
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+            transition: transform 0.3s, box-shadow 0.3s;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .product-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .product-card img {
+            width: 100%;
+            height: auto;
+        }
+
+        .product-card h3 {
+            margin: 10px;
+            font-size: 1.2em;
+            color: #d4006b; /* Rosa escuro */
+            text-align: center;
+        }
+
+        footer {
+            background-color: #ff99cc;
+            text-align: center;
+            padding: 10px 0;
+            color: #fff;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+
+        @media (max-width: 768px) {
+            header {
+                font-size: 1.5em;
+            }
+
+            header img {
+                height: 40px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <img src="logo.png" alt="Logo Achadinhos da Bia">
+        Achadinhos da Bia 💖✨
+    </header>
+
+    <div class="search-bar">
+        <input type="text" placeholder="Pesquise um produto...">
+        <button>Pesquisar</button>
+    </div>
+
+    <div class="container">
+        <div class="product-grid" id="product-grid">
+            <!-- Os produtos serão carregados dinamicamente aqui -->
+        </div>
+    </div>
+
+    <footer>
+        © 2025 Achadinhos da Bia - Todos os direitos reservados
+    </footer>
+
+    <script>
+        // Dados dos produtos em formato JSON
+        const produtos = [
+    {
+        "link": "https://s.shopee.com.br/7V0XFk4hXt",
+        "imagem": "produtos/bagagensBranca.png",
+        "titulo": "Bagagens Branca"
+    },
+    {
+        "link": "https://s.shopee.com.br/6fRRupXnFu",
+        "imagem": "produtos/bolsasAzul.png",
+        "titulo": "Bolsa Azul"
+    },
+    {
+        "link": "https://s.shopee.com.br/5Acapaqg4d",
+        "imagem": "produtos/bolsasDiversas.png",
+        "titulo": "Bolsas Diversas"
+    },
+    {
+        "link": "https://s.shopee.com.br/BDusGQXy9",
+        "imagem": "produtos/bolsasPretaRosa.png",
+        "titulo": "Bolsa Preta e Rosa"
+    },
+    {
+        "link": "https://s.shopee.com.br/6AVCnwwDuI",
+        "imagem": "produtos/cadernoCapaDura.png",
+        "titulo": "Caderno Capa Dura"
+    },
+    {
+        "link": "https://s.shopee.com.br/5Acaq9Y8iu",
+        "imagem": "produtos/cadernoDeCompras.png",
+        "titulo": "Caderno de Compras"
+    },
+    {
+        "link": "https://s.shopee.com.br/4Ak5JAn0XJ",
+        "imagem": "produtos/cadernoInteligente.png",
+        "titulo": "Caderno Inteligente"
+    },
+    {
+        "link": "https://s.shopee.com.br/30Y6GHdYo7",
+        "imagem": "produtos/cadernosColoridos.png",
+        "titulo": "Cadernos Coloridos"
+    },
+    {
+        "link": "https://s.shopee.com.br/6pktb8SrEH",
+        "imagem": "produtos/cadernoStitch.png",
+        "titulo": "Caderno Stitch"
+    },
+    {
+        "link": "https://s.shopee.com.br/2VbpeP2Smo",
+        "imagem": "produtos/canetas.png",
+        "titulo": "Canetas"
+    },
+    {
+        "link": "https://s.shopee.com.br/3LAzwVo5pu",
+        "imagem": "produtos/canetasColoridas.png",
+        "titulo": "Canetas Coloridas"
+    },
+    {
+        "link": "https://s.shopee.com.br/9KS9njAGCx",
+        "imagem": "produtos/espelhoTouch.png",
+        "titulo": "Espelho Touch"
+    },
+    {
+        "link": "https://s.shopee.com.br/20faiCbtpv",
+        "imagem": "produtos/estojao.png",
+        "titulo": "Estojo"
+    },
+    {
+        "link": "https://s.shopee.com.br/30Y9XscZD3",
+        "imagem": "produtos/gibisTurmaDaMonica.png",
+        "titulo": "Gibis Turma da Mônica"
+    },
+    {
+        "link": "https://s.shopee.com.br/2fvHUZbw0S",
+        "imagem": "produtos/kiko.png",
+        "titulo": "Kiko"
+    },
+    {
+        "link": "https://s.shopee.com.br/4pzkREfqWw",
+        "imagem": "produtos/luminaria De Lua.jpg",
+        "titulo": "Luminária de Lua"
+    },
+    {
+        "link": "https://s.shopee.com.br/LXMifcMO0",
+        "imagem": "produtos/mixers.png",
+        "titulo": "Mixers"
+    },
+    {
+        "link": "https://s.shopee.com.br/2AyzGGxFco",
+        "imagem": "produtos/organizador de  mesa.jpg",
+        "titulo": "Organizador de Mesa"
+    },
+    {
+        "link": "https://s.shopee.com.br/40Qf68x1Jz",
+        "imagem": "produtos/penteadeira.png",
+        "titulo": "Penteadeira"
+    },
+    {
+        "link": "https://s.shopee.com.br/8Ut66EYo0l",
+        "imagem": "produtos/pijamas.png",
+        "titulo": "Pijamas"
+    },
+    {
+        "link": "https://s.shopee.com.br/40QiE3ORzX",
+        "imagem": "produtos/pinceis.png",
+        "titulo": "Pincéis"
+    },
+    {
+        "link": "https://s.shopee.com.br/1qMC9wLOaM",
+        "imagem": "produtos/piranhas.png",
+        "titulo": "Piranhas"
+    },
+    {
+        "link": "https://s.shopee.com.br/7KhAC1KCSR",
+        "imagem": "produtos/potinho.png",
+        "titulo": "Potinho"
+    },
+    {
+        "link": "https://s.shopee.com.br/2qEkptNeu4",
+        "imagem": "produtos/pulseira.png",
+        "titulo": "Pulseira"
+    },
+    {
+        "link": "https://s.shopee.com.br/5VFRDhIhEr",
+        "imagem": "produtos/relogio.png",
+        "titulo": "Relógio"
+    },
+    {
+        "link": "https://s.shopee.com.br/704JnIbUnP",
+        "imagem": "produtos/rodinho.png",
+        "titulo": "Rodinho"
+    },
+    {
+        "link": "https://s.shopee.com.br/8KZeG3Ljkf",
+        "imagem": "produtos/sapateira.png",
+        "titulo": "Sapateira"
+    },
+    {
+        "link": "https://s.shopee.com.br/4L3VVNwMJK",
+        "imagem": "produtos/tesouras.png",
+        "titulo": "Tesouras"
+    },
+    {
+        "link": "https://s.shopee.com.br/1VjLlW3Nel",
+        "imagem": "produtos/travesseiroCoracao.png",
+        "titulo": "Travesseiro Coração"
+    },
+    {
+        "link": "https://s.shopee.com.br/4Ak8Q2v3WS",
+        "imagem": "produtos/travesseirosBrancos.png",
+        "titulo": "Travesseiros Brancos"
+    },
+    {
+        "link": "https://s.shopee.com.br/4Ak6wNvH3Y",
+        "imagem": "produtos/umidificador.png",
+        "titulo": "Umidificador"
+    },
+    {
+        "link": "https://s.shopee.com.br/4fgNWuGfVU",
+        "imagem": "produtos/variasCanetas.png",
+        "titulo": "Várias Canetas"
+    },
+    {
+        "link": "https://s.shopee.com.br/6AV9feVgkD",
+        "imagem": "produtos/vasos.png",
+        "titulo": "Vasos"
+    }
+];
+
+
+        // Carregar produtos dinamicamente
+        const productGrid = document.getElementById('product-grid');
+
+        produtos.forEach(produto => {
+            const productCard = document.createElement('a');
+            productCard.href = produto.link;
+            productCard.target = '_blank';
+            productCard.classList.add('product-card');
+
+            productCard.innerHTML = `
+                <img src="${produto.imagem}" alt="${produto.titulo}">
+                <h3>${produto.titulo}</h3>
+            `;
+
+            productGrid.appendChild(productCard);
+        });
+    </script>
+</body>
+</html>
