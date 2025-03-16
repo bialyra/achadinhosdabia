@@ -3,139 +3,302 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Achadinhos da Bia</title>
+    <title>Lojinha da Bia</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        body {
+        * {
             margin: 0;
-            font-family: Arial, sans-serif;
-            background-color: #ffe6f0; /* Fundo rosa claro */
-            color: #4a004d; /* Texto roxo escuro */
+            padding: 0;
+            box-sizing: border-box;
         }
 
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #ffe6f0, #fff5f8);
+            color: #4a004d;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Header */
         header {
-            background-color: #ff99cc; /* Rosa médio */
-            padding: 20px;
-            text-align: center;
-            font-size: 1.8em;
-            font-weight: bold;
-            color: #fff;
-            position: relative;
+            background: linear-gradient(90deg, #ff99cc, #ffb3d9);
+            padding: 20px 30px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
         }
 
-        header img {
-            position: absolute;
-            left: 20px;
-            top: 50%;
-            transform: translateY(-50%);
-            height: 50px;
-        }
-
-        .search-bar {
-            margin: 20px auto;
-            max-width: 600px;
+        .header-content {
             display: flex;
-            justify-content: center;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo-section {
+            display: flex;
+            flex-direction: column;
             gap: 10px;
         }
 
+        .logo-title {
+            display: flex;
+            align-items: center;
+        }
+
+        header img {
+            height: 50px;
+            margin-right: 15px;
+            transition: transform 0.3s ease;
+        }
+
+        header img:hover {
+            transform: scale(1.1);
+        }
+
+        header h1 {
+            font-size: 1.8em;
+            color: #fff;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
+        }
+
+        .search-bar {
+            max-width: 300px;
+            position: relative;
+        }
+
         .search-bar input {
-            flex: 1;
-            padding: 10px;
-            border: 2px solid #ff99cc;
-            border-radius: 5px;
+            width: 100%;
+            padding: 10px 15px 10px 40px;
+            border: 2px solid #d4006b;
+            border-radius: 25px;
+            font-size: 0.9em;
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+
+        .search-bar input:focus {
+            border-color: #ff0066;
+            box-shadow: 0 0 10px rgba(212, 0, 107, 0.3);
+            outline: none;
+        }
+
+        .search-bar i {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #d4006b;
             font-size: 1em;
         }
 
-        .search-bar button {
+        .tabs {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .tab {
             padding: 10px 20px;
-            background-color: #d4006b;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            font-size: 1em;
+            background: #ff99cc;
+            color: #fff;
+            border-radius: 15px;
             cursor: pointer;
-            transition: background-color 0.3s;
+            font-weight: 600;
+            transition: background 0.3s, transform 0.2s;
         }
 
-        .search-bar button:hover {
-            background-color: #ff0066;
+        .tab.active {
+            background: #d4006b;
+            transform: scale(1.05);
         }
 
+        .tab:hover {
+            background: #ff66b3;
+        }
+
+        /* Loader */
+        .loader {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 50vh;
+            font-size: 1.2em;
+            color: #d4006b;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 10px;
+        }
+
+        .loader::after {
+            content: '';
+            width: 30px;
+            height: 30px;
+            border: 4px solid #d4006b;
+            border-top: 4px solid transparent;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-left: 10px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Container */
         .container {
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto;
-            padding: 20px;
+            padding: 30px;
         }
 
+        /* Product Grid */
         .product-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 20px;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+            padding: 20px;
+            transition: opacity 0.5s ease;
+        }
+
+        .product-grid.fade-out {
+            opacity: 0;
+        }
+
+        .product-grid.fade-in {
+            opacity: 1;
         }
 
         .product-card {
-            background-color: #fff;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            background: linear-gradient(135deg, #fff, #fff5f8);
+            border-radius: 15px;
             overflow: hidden;
-            transition: transform 0.3s, box-shadow 0.3s;
-            text-decoration: none;
-            color: inherit;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 0.5s ease forwards;
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         .product-card:hover {
-            transform: scale(1.05);
-            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+            transform: translateY(-10px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
         }
 
-        .product-card img {
+        .product-image {
+            position: relative;
+            overflow: hidden;
+            height: 200px;
+            cursor: pointer;
+        }
+
+        .product-image img {
             width: 100%;
-            height: auto;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
         }
 
-        .product-card h3 {
-            margin: 10px;
+        .product-card:hover .product-image img {
+            transform: scale(1.15);
+        }
+
+        .product-info {
+            padding: 15px;
+            text-align: center;
+        }
+
+        .product-info h3 {
             font-size: 1.2em;
-            color: #d4006b; /* Rosa escuro */
-            text-align: center;
+            color: #d4006b;
+            margin-bottom: 5px;
+            font-weight: 600;
         }
 
-        footer {
-            background-color: #ff99cc;
-            text-align: center;
-            padding: 10px 0;
-            color: #fff;
+        .product-source {
+            font-size: 0.9em;
+            color: #777;
+        }
+
+        /* Back to Top Button */
+        .back-to-top {
             position: fixed;
-            bottom: 0;
-            width: 100%;
+            bottom: 30px;
+            right: 30px;
+            background: #d4006b;
+            color: #fff;
+            padding: 10px 15px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: none;
+            transition: background 0.3s, transform 0.3s;
         }
 
-        @media (max-width: 768px) {
-            header {
-                font-size: 1.5em;
-            }
+        .back-to-top:hover {
+            background: #ff0066;
+            transform: scale(1.1);
+        }
 
-            header img {
-                height: 40px;
-            }
+        /* Footer */
+        footer {
+            background: #ff99cc;
+            text-align: center;
+            padding: 15px;
+            color: #fff;
+            box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Responsividade */
+        @media (max-width: 768px) {
+            header { padding: 10px 20px; }
+            .header-content { flex-direction: column; align-items: flex-start; }
+            .logo-section { margin-bottom: 10px; }
+            .search-bar { max-width: 100%; margin-bottom: 10px; }
+            .tabs { flex-wrap: wrap; justify-content: center; width: 100%; }
+            .product-grid { grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); }
+            .product-image { height: 180px; }
         }
     </style>
 </head>
 <body>
     <header>
-        <img src="logo.jpg" alt="Logo Achadinhos da Bia">
-        Achadinhos da Bia 💖✨
+        <div class="header-content">
+            <div class="logo-section">
+                <div class="logo-title">
+                    <img src="assets/logo.jpg" alt="Logo Achadinhos da Bia">
+                    <h1>Lojinha da Bia💖✨</h1>
+                </div>
+                <div class="search-bar">
+                    <i class="fas fa-search"></i>
+                    <input type="text" id="search-input" placeholder="Pesquise um produto...">
+                </div>
+            </div>
+            <div class="tabs">
+                <div class="tab active" onclick="filterProducts('all')">Todos</div>
+                <div class="tab" onclick="filterProducts('shopee')">Shopee</div>
+                <div class="tab" onclick="filterProducts('amazon')">Amazon</div>
+                <div class="tab" onclick="filterProducts('mercado')">Mercado Livre</div>
+                <div class="tab" onclick="alert('Funcionalidade em desenvolvimento!')">Meus Produtos</div>
+            </div>
+        </div>
     </header>
 
-    <div class="search-bar">
-        <input type="text" placeholder="Pesquise um produto...">
-        <button>Pesquisar</button>
+    <div class="container">
+        <div class="loader" id="loader">Carregando...</div>
+        <div class="product-grid" id="product-grid" style="display: none;"></div>
     </div>
 
-    <div class="container">
-        <div class="product-grid" id="product-grid">
-            <!-- Os produtos serão carregados dinamicamente aqui -->
-        </div>
+    <div class="back-to-top" id="back-to-top">
+        <i class="fas fa-chevron-up"></i>
     </div>
 
     <footer>
@@ -143,480 +306,567 @@
     </footer>
 
     <script>
-        // Dados dos produtos em formato JSON
         const produtos = [
-    {
-        "link": "https://s.shopee.com.br/7V0XFk4hXt",
-        "imagem": "produtos/bagagensBranca.png",
-        "titulo": "Kit 7 Pecas Bolsa Organizadoras"
-    },
-    {
-        "link": "https://s.shopee.com.br/6fRRupXnFu",
-        "imagem": "produtos/bolsaRosa.png",
-        "titulo": "Bolsa Feminina Pequena"
-    },
-    {
-        "link": "https://s.shopee.com.br/5Acapaqg4d",
-        "imagem": "produtos/bolsasDiversas.png",
-        "titulo": "Bolsa De Couro"
-    },
-    {
-        "link": "https://s.shopee.com.br/BDusGQXy9",
-        "imagem": "produtos/bolsasPretaRosa.png",
-        "titulo": "Bolsa Lateral Feminina"
-    },
-    {
-        "link": "https://s.shopee.com.br/6AVCnwwDuI",
-        "imagem": "produtos/cadernoCapaDura.png",
-        "titulo": "Livro de Colorir Capa dura"
-    },
-    {
-        "link": "https://s.shopee.com.br/5Acaq9Y8iu",
-        "imagem": "produtos/cadernoDeCompras.png",
-        "titulo": "Caderno de Controle Financeiro"
-    },
-    {
-        "link": "https://s.shopee.com.br/4Ak5JAn0XJ",
-        "imagem": "produtos/cadernoInteligente.png",
-        "titulo": "Planner Do Professor"
-    },
-    {
-        "link": "https://s.shopee.com.br/30Y6GHdYo7",
-        "imagem": "produtos/cadernosColoridos.png",
-        "titulo": "Caderno Tipo Inteligente Capa Dura"
-    },
-    {
-        "link": "https://s.shopee.com.br/6pktb8SrEH",
-        "imagem": "produtos/cadernoStitch.png",
-        "titulo": "Caderno Stitch"
-    },
-    {
-        "link": "https://s.shopee.com.br/2VbpeP2Smo",
-        "imagem": "produtos/canetas.png",
-        "titulo": "Kit De Caneta Para Colorir"
-    },
-    {
-        "link": "https://s.shopee.com.br/3LAzwVo5pu",
-        "imagem": "produtos/canetasColoridas.png",
-        "titulo": "Kit 5 Canetas Marca Texto Tom Pastel"
-    },
-    {
-        "link": "https://s.shopee.com.br/9KS9njAGCx",
-        "imagem": "produtos/espelhoTouch.png",
-        "titulo": "Espelho Decorativo Led Maquiagem"
-    },
-    {
-        "link": "https://s.shopee.com.br/20faiCbtpv",
-        "imagem": "produtos/estojao.png",
-        "titulo": "Kit Canetinhas"
-    },
-    {
-        "link": "https://s.shopee.com.br/30Y9XscZD3",
-        "imagem": "produtos/gibisTurmaDaMonica.png",
-        "titulo": "Kit 3000 Adesivos para Professores - Turma da Mônica"
-    },
-    {
-        "link": "https://s.shopee.com.br/2fvHUZbw0S",
-        "imagem": "produtos/kiko.png",
-        "titulo": "Kiko Lip Gloss"
-    },
-    {
-        "link": "https://s.shopee.com.br/4pzkREfqWw",
-        "imagem": "produtos/luminaria de lua.jpg",
-        "titulo": "Luminária de Lua"
-    },
-    {
-        "link": "https://s.shopee.com.br/LXMifcMO0",
-        "imagem": "produtos/mixers.png",
-        "titulo": "Mixers"
-    },
-    {
-        "link": "https://s.shopee.com.br/2AyzGGxFco",
-        "imagem": "produtos/organizador de  mesa.jpg",
-        "titulo": "Organizador de Mesa"
-    },
-    {
-        "link": "https://s.shopee.com.br/40Qf68x1Jz",
-        "imagem": "produtos/penteadeira.png",
-        "titulo": "Penteadeira"
-    },
-    {
-        "link": "https://s.shopee.com.br/8Ut66EYo0l",
-        "imagem": "produtos/pijamas.png",
-        "titulo": "Pijamas"
-    },
-    {
-        "link": "https://s.shopee.com.br/40QiE3ORzX",
-        "imagem": "produtos/pinceis.png",
-        "titulo": "Kit de Pincéis"
-    },
-    {
-        "link": "https://s.shopee.com.br/1qMC9wLOaM",
-        "imagem": "produtos/piranhas.png",
-        "titulo": "Piranhas"
-    },
-    {
-        "link": "https://s.shopee.com.br/7KhAC1KCSR",
-        "imagem": "produtos/potinho.png",
-        "titulo": "Pote de borracha"
-    },
-    {
-        "link": "https://s.shopee.com.br/2qEkptNeu4",
-        "imagem": "produtos/pulseira.png",
-        "titulo": "Pulseira Com Berloques"
-    },
-    {
-        "link": "https://s.shopee.com.br/5VFRDhIhEr",
-        "imagem": "produtos/relogio.png",
-        "titulo": "Relógio com pulseira, Colar e Brincos"
-    },
-    {
-        "link": "https://s.shopee.com.br/704JnIbUnP",
-        "imagem": "produtos/rodinho.png",
-        "titulo": "Rodinho"
-    },
-    {
-        "link": "https://s.shopee.com.br/8KZeG3Ljkf",
-        "imagem": "produtos/sapateira.png",
-        "titulo": "Sapateira"
-    },
-    {
-        "link": "https://s.shopee.com.br/4L3VVNwMJK",
-        "imagem": "produtos/tesouras.png",
-        "titulo": "Tesoura Escolar De Picotar"
-    },
-    {
-        "link": "https://s.shopee.com.br/1VjLlW3Nel",
-        "imagem": "produtos/travesseiroCoracao.png",
-        "titulo": "kit 4 capas de almofada"
-    },
-    {
-        "link": "https://s.shopee.com.br/4Ak8Q2v3WS",
-        "imagem": "produtos/travesseirosBrancos.png",
-        "titulo": "Kit com 4 Almofadas Brancas"
-    },
-    {
-        "link": "https://s.shopee.com.br/4Ak6wNvH3Y",
-        "imagem": "produtos/umidificador.png",
-        "titulo": "Umidificador"
-    },
-    {
-        "link": "https://s.shopee.com.br/4fgNWuGfVU",
-        "imagem": "produtos/variasCanetas.png",
-        "titulo": "Kit Com Canetas Gel"
-    },
-    {
-        "link": "https://s.shopee.com.br/6AV9feVgkD",
-        "imagem": "produtos/vasos.png",
-        "titulo": "Vasos"
-    },
-    {
-        "link": "https://amzn.to/429phyu",
-        "imagem": "produtos/Anatomia true crime dos filme.jpg",
-        "titulo": "Anatomia True Crime"
-    },
-    {
-        "link": "https://amzn.to/3C0ilsW",
-        "imagem": "produtos/Arquivos Serial Killers Louco ou Cruel.jpg",
-        "titulo": "Arquivos Serial Killers"
-    },
-    {
-        "link": "https://s.shopee.com.br/3VUUk22nQg",
-        "imagem": "produtos/bolsa.jpeg",
-        "titulo": "Bolsa"
-    },
-    {
-        "link": "https://mercadolivre.com/sec/2zN82Ad",
-        "imagem": "produtos/Bolsa2.jpg",
-        "titulo": "Bolsa para faculdade"
-    },
-    {
-        "link": "https://s.shopee.com.br/AUeEncvCac",
-        "imagem": "produtos/escova secadora.jpeg",
-        "titulo": "Escova Secadora"
-    },
-    {
-        "link": "https://mercadolivre.com/sec/15ECAZ3",
-        "imagem": "produtos/Estojo.png",
-        "titulo": "Estojo"
-    },
-    {
-        "link": "https://s.shopee.com.br/2qEneaVrNS",
-        "imagem": "produtos/kit garrafa.jpeg",
-        "titulo": "Kit 3 Garrafas"
-    },
-    {
-        "link": "https://mercadolivre.com/sec/1ctbXqe",
-        "imagem": "produtos/lancheira.jpg",
-        "titulo": "Lancheira Termica Neopreme"
-    },
-    {
-        "link": "https://amzn.to/3DPyW36",
-        "imagem": "produtos/Modus operandi.jpg",
-        "titulo": "Modus Operandi"
-    },
-    {
-        "link": "https://s.shopee.com.br/gAJ6UwqH6",
-        "imagem": "produtos/organizador.jpeg",
-        "titulo": "Organizador de armário"
-    },
-    {
-        "link": "https://s.shopee.com.br/1VjK7yCOdk",
-        "imagem": "produtos/blusacombinando.jpg",
-        "titulo": "Blusa de casal Mcquenn"
-    },
-    {
-        "link": "https://s.shopee.com.br/7pdLQJsCSH",
-        "imagem": "produtos/espelho.jpeg",
-        "titulo": "Espelho"
-    },
-    {
-        "link": "https://s.shopee.com.br/20fainHJg4",
-        "imagem": "produtos/pijama hp.jpg",
-        "titulo": "Pijama Harry Potter"
-    },
-    {
-        "link": "https://s.shopee.com.br/AA1GDKsm7e",
-        "imagem": "produtos/luminaria.jpeg",
-        "titulo": "Luminária"
-    },
-    {
-        "link": "https://s.shopee.com.br/2LIUEkVDXr",
-        "imagem": "produtos/triturador.png",
-        "titulo": "Triturador"
-    },
-    {
-        "link": "https://s.shopee.com.br/6AVFdiwsr7",
-        "imagem": "produtos/depilador.jpeg",
-        "titulo": "Depilador elétrico"
-    },
-    {
-        "link": "https://amzn.to/4fTWkcW",
-        "imagem": "produtos/anatomia do mal.png",
-        "titulo": "Serial killers - Anatomia do Mal"
-    },
-    {
-        "link": "https://amzn.to/4haozoQ",
-        "imagem": "produtos/teddy pund.png",
-        "titulo": "Ted Bundy: Um Estranho ao Meu Lado"
-    },
-    {
-        "link": "https://s.shopee.com.br/6AVJXDqd0K",
-        "imagem": "produtos/Apontador eletrico.jpeg",
-        "titulo": "Apontador eletrico"
-    },
-    {
-        "link": "https://s.shopee.com.br/4VN5YBnMjQ",
-        "imagem": "produtos/caixinha de som com microfone.jpeg",
-        "titulo": "caixinha de som com microfone"
-    },
-    {
-        "link": "https://s.shopee.com.br/8UtEJWxhdQ",
-        "imagem": "produtos/caneta com carimbo.jpeg",
-        "titulo": "caneta com carimbo"
-    },
-    {
-        "link": "https://s.shopee.com.br/VqwmobMTg",
-        "imagem": "produtos/guilhotina de papel.jpeg",
-        "titulo": "guilhotina de papel"
-    },
-    {
-        "link": "https://s.shopee.com.br/5AcmLOoOUC",
-        "imagem": "produtos/kit 3 carimbos de professor.jpeg",
-        "titulo": "kit 3 carimbos de professor"
-    },
-    {
-        "link": "https://s.shopee.com.br/ugCH00f4",
-        "imagem": "produtos/kit de cozinha corte.jpeg",
-        "titulo": "kit de cozinha corte"
-    },
-    {
-        "link": "https://s.shopee.com.br/AKKsVFzR3p",
-        "imagem": "produtos/lampada de led.jpeg",
-        "titulo": "lampada de led"
-    },
-    {
-        "link": "https://s.shopee.com.br/10nDO64AWQ",
-        "imagem": "produtos/luminaria de mesa.jpeg",
-        "titulo": "luminaria de mesa"
-    },
-    {
-        "link": "https://s.shopee.com.br/8UtEJuKRns",
-        "imagem": "produtos/movel para lado da cama.jpeg",
-        "titulo": "movel para lado da cama"
-    },
-    {
-        "link": "https://s.shopee.com.br/3Arhy6D7D6",
-        "imagem": "produtos/utensilios de cozinha de silicone.jpeg",
-        "titulo": "utensilios de cozinha de silicone"
-    },
-    {
-        "link": "https://mercadolivre.com/sec/2XZhAQy",
-        "imagem": "produtos/fone de ouvido grande .png",
-        "titulo": "fone de ouvido grande"
-    },
-    {
-        "link": "https://mercadolivre.com/sec/2RsCpEH",
-        "imagem": "produtos/fone de ouvido par .png",
-        "titulo": "fone de ouvido par"
-    },
-    {
-        "link": "https://mercadolivre.com/sec/2XW72Pe",
-        "imagem": "produtos/relogio feminino e masculino.png",
-        "titulo": "relogio feminino e masculino"
-    },
-    {
-        "link": "https://mercadolivre.com/sec/2yWpyfc",
-        "imagem": "produtos/short saia .png",
-        "titulo": "short saia"
-    },
-    {
-        "link": "https://mercadolivre.com/sec/1KCiQbh",
-        "imagem": "produtos/top com ziper.png",
-        "titulo": "top com ziper"
-    },
-    {
-        "link": "https://amzn.to/4gKp2yi",
-        "imagem": "produtos/Em rota de colisão.png",
-        "titulo": "Em rota de colisão"
-    },
-    {
-        "link": "https://amzn.to/3Cefa0D",
-        "imagem": "produtos/No calor do momento.png",
-        "titulo": "No calor do momento"
-    },
-    {
-        "link": "https://amzn.to/4fTaF9J",
-        "imagem": "produtos/atras  da rede .png",
-        "titulo": "atrás da rede"
-    },
-    {
-        "link": "https://amzn.to/40bAlIH",
-        "imagem": "produtos/quebrando o gelo.png",
-        "titulo": "Quebrando o gelo"
-    },
-    {
-        "link": "https://amzn.to/4acLX2U",
-        "imagem": "produtos/sapatilhas de gelo.png",
-        "titulo": "sapatilhas de gelo"
-    },
-    {
-        "link": "https://amzn.to/40fETOk",
-        "imagem": "produtos/MilpartesDoMeuCoracao.png",
-        "titulo": "As mil partes do meu coração"
-    },
-    {
-        "link": "https://s.shopee.com.br/1LQ8EmO7xQ",
-        "imagem": "produtos/CABECEIRA.jpeg",
-        "titulo": "Cabeceira de Cama Casal"
-    },
-    {
-        "link": "https://s.shopee.com.br/9f5GAHVxNt",
-        "imagem": "produtos/CAPINHA FONE.jpeg",
-        "titulo": "Capinha De Fone"
-    },
-    {
-        "link": "https://s.shopee.com.br/4L3joQIH57",
-        "imagem": "produtos/ESCOVA ELETRICA.jpeg",
-        "titulo": "Escova De Limpeza Ajustável"
-    },
-    {
-        "link": "https://amzn.to/3WlqnDH",
-        "imagem": "produtos/KIT HOPLES.png",
-        "titulo": "Kit Hopeless"
-    },
-    {
-        "link": "https://s.shopee.com.br/3q7TDcTJPE",
-        "imagem": "produtos/KIT NECESSERIE.jpeg",
-        "titulo": "Kit 3 Necessaire"
-    },
-    {
-        "link": "https://s.shopee.com.br/4L3joYn0G8",
-        "imagem": "produtos/KIT UNHA.jpeg",
-        "titulo": "Kit Alongamento"
-    },
-    {
-        "link": "https://mercadolivre.com/sec/2kzVoA6",
-        "imagem": "produtos/Kit skin care.png",
-        "titulo": "Kit Skincare Completo"
-    },
-    {
-        "link": "https://s.shopee.com.br/5Acqnr4KJB",
-        "imagem": "produtos/MESINHA DE CANTO.jpeg",
-        "titulo": "Kit Trio Jogo de Mesinhas"
-    },
-    {
-        "link": "https://s.shopee.com.br/2fvVpKuE1u",
-        "imagem": "produtos/MOB.jpeg",
-        "titulo": "Mop Spray Rodo Prático"
-    },
-    {
-        "link": "https://s.shopee.com.br/4L3joVTSCg",
-        "imagem": "produtos/MOCHILA STITCH.jpeg",
-        "titulo": "Stitch Large Capacity"
-    },
-    {
-        "link": "https://amzn.to/4hiHqON",
-        "imagem": "produtos/O LADO FEIO DO AMOR.png",
-        "titulo": "O lado feio do amor "
-    },
-    {
-        "link": "https://s.shopee.com.br/3fo318TzSF",
-        "imagem": "produtos/PRATELEIRA SUSPENSA.jpeg",
-        "titulo": "Prateleira de Madeira Suspensa"
-    },
-    {
-        "link": "https://s.shopee.com.br/9pOgMYNKZG",
-        "imagem": "produtos/SERUM MELU.jpeg",
-        "titulo": "Sérum Facial Melu"
-    },
-    {
-        "link": "https://amzn.to/40y1XJD",
-        "imagem": "produtos/todasinperf.png",
-        "titulo": "Todas as suas (im)perfeições "
-    },
-    {
-        "link": "https://amzn.to/42g47Pq",
-        "imagem": "produtos/VERITY.png",
-        "titulo": "Verity"
-    },
-    {
-        "link": "https://mercadolivre.com/sec/2T43tij",
-        "imagem": "produtos/kit de maquiagem.png",
-        "titulo": "Kit Maquiagem"
-    },
-    {
-        "link": "https://mercadolivre.com/sec/2s9VCCm",
-        "imagem": "produtos/mascara lola.png",
-        "titulo": "Máscara Lola"
-    },
-    {
-        "link": "https://mercadolivre.com/sec/2Zr3EWu",
-        "imagem": "produtos/prancha para cabelos.png",
-        "titulo": "Chapinha/Prancha de cabelo Gama"
-    },
-    {
-        "link": "https://mercadolivre.com/sec/2EF45da",
-        "imagem": "produtos/secador.png",
-        "titulo": "Secador Super Hair"
-    }
-];
-        // Carregar produtos dinamicamente
+            {
+                "link": "https://s.shopee.com.br/7V0XFk4hXt",
+                "imagem": "produtos/bagagensBranca.png",
+                "titulo": "Kit 7 Pecas Bolsa Organizadoras"
+            },
+            {
+                "link": "https://s.shopee.com.br/6fRRupXnFu",
+                "imagem": "produtos/bolsaRosa.png",
+                "titulo": "Bolsa Feminina Pequena"
+            },
+            {
+                "link": "https://s.shopee.com.br/5Acapaqg4d",
+                "imagem": "produtos/bolsasDiversas.png",
+                "titulo": "Bolsa De Couro"
+            },
+            {
+                "link": "https://s.shopee.com.br/BDusGQXy9",
+                "imagem": "produtos/bolsasPretaRosa.png",
+                "titulo": "Bolsa Lateral Feminina"
+            },
+            {
+                "link": "https://s.shopee.com.br/6AVCnwwDuI",
+                "imagem": "produtos/cadernoCapaDura.png",
+                "titulo": "Livro de Colorir Capa dura"
+            },
+            {
+                "link": "https://s.shopee.com.br/5Acaq9Y8iu",
+                "imagem": "produtos/cadernoDeCompras.png",
+                "titulo": "Caderno de Controle Financeiro"
+            },
+            {
+                "link": "https://s.shopee.com.br/4Ak5JAn0XJ",
+                "imagem": "produtos/cadernoInteligente.png",
+                "titulo": "Planner Do Professor"
+            },
+            {
+                "link": "https://s.shopee.com.br/30Y6GHdYo7",
+                "imagem": "produtos/cadernosColoridos.png",
+                "titulo": "Caderno Tipo Inteligente Capa Dura"
+            },
+            {
+                "link": "https://s.shopee.com.br/6pktb8SrEH",
+                "imagem": "produtos/cadernoStitch.png",
+                "titulo": "Caderno Stitch"
+            },
+            {
+                "link": "https://s.shopee.com.br/2VbpeP2Smo",
+                "imagem": "produtos/canetas.png",
+                "titulo": "Kit De Caneta Para Colorir"
+            },
+            {
+                "link": "https://s.shopee.com.br/3LAzwVo5pu",
+                "imagem": "produtos/canetasColoridas.png",
+                "titulo": "Kit 5 Canetas Marca Texto Tom Pastel"
+            },
+            {
+                "link": "https://s.shopee.com.br/9KS9njAGCx",
+                "imagem": "produtos/espelhoTouch.png",
+                "titulo": "Espelho Decorativo Led Maquiagem"
+            },
+            {
+                "link": "https://s.shopee.com.br/20faiCbtpv",
+                "imagem": "produtos/estojao.png",
+                "titulo": "Kit Canetinhas"
+            },
+            {
+                "link": "https://s.shopee.com.br/30Y9XscZD3",
+                "imagem": "produtos/gibisTurmaDaMonica.png",
+                "titulo": "Kit 3000 Adesivos para Professores - Turma da Mônica"
+            },
+            {
+                "link": "https://s.shopee.com.br/2fvHUZbw0S",
+                "imagem": "produtos/kiko.png",
+                "titulo": "Kiko Lip Gloss"
+            },
+            {
+                "link": "https://s.shopee.com.br/4pzkREfqWw",
+                "imagem": "produtos/luminaria de lua.jpg",
+                "titulo": "Luminária de Lua"
+            },
+            {
+                "link": "https://s.shopee.com.br/LXMifcMO0",
+                "imagem": "produtos/mixers.png",
+                "titulo": "Mixers"
+            },
+            {
+                "link": "https://s.shopee.com.br/2AyzGGxFco",
+                "imagem": "produtos/organizador de mesa.jpg",
+                "titulo": "Organizador de Mesa"
+            },
+            {
+                "link": "https://s.shopee.com.br/40Qf68x1Jz",
+                "imagem": "produtos/penteadeira.png",
+                "titulo": "Penteadeira"
+            },
+            {
+                "link": "https://s.shopee.com.br/8Ut66EYo0l",
+                "imagem": "produtos/pijamas.png",
+                "titulo": "Pijamas"
+            },
+            {
+                "link": "https://s.shopee.com.br/40QiE3ORzX",
+                "imagem": "produtos/pinceis.png",
+                "titulo": "Kit de Pincéis"
+            },
+            {
+                "link": "https://s.shopee.com.br/1qMC9wLOaM",
+                "imagem": "produtos/piranhas.png",
+                "titulo": "Piranhas"
+            },
+            {
+                "link": "https://s.shopee.com.br/7KhAC1KCSR",
+                "imagem": "produtos/potinho.png",
+                "titulo": "Pote de borracha"
+            },
+            {
+                "link": "https://s.shopee.com.br/2qEkptNeu4",
+                "imagem": "produtos/pulseira.png",
+                "titulo": "Pulseira Com Berloques"
+            },
+            {
+                "link": "https://s.shopee.com.br/5VFRDhIhEr",
+                "imagem": "produtos/relogio.png",
+                "titulo": "Relógio com pulseira, Colar e Brincos"
+            },
+            {
+                "link": "https://s.shopee.com.br/704JnIbUnP",
+                "imagem": "produtos/rodinho.png",
+                "titulo": "Rodinho"
+            },
+            {
+                "link": "https://s.shopee.com.br/8KZeG3Ljkf",
+                "imagem": "produtos/sapateira.png",
+                "titulo": "Sapateira"
+            },
+            {
+                "link": "https://s.shopee.com.br/4L3VVNwMJK",
+                "imagem": "produtos/tesouras.png",
+                "titulo": "Tesoura Escolar De Picotar"
+            },
+            {
+                "link": "https://s.shopee.com.br/1VjLlW3Nel",
+                "imagem": "produtos/travesseiroCoracao.png",
+                "titulo": "kit 4 capas de almofada"
+            },
+            {
+                "link": "https://s.shopee.com.br/4Ak8Q2v3WS",
+                "imagem": "produtos/travesseirosBrancos.png",
+                "titulo": "Kit com 4 Almofadas Brancas"
+            },
+            {
+                "link": "https://s.shopee.com.br/4Ak6wNvH3Y",
+                "imagem": "produtos/umidificador.png",
+                "titulo": "Umidificador"
+            },
+            {
+                "link": "https://s.shopee.com.br/4fgNWuGfVU",
+                "imagem": "produtos/variasCanetas.png",
+                "titulo": "Kit Com Canetas Gel"
+            },
+            {
+                "link": "https://s.shopee.com.br/6AV9feVgkD",
+                "imagem": "produtos/vasos.png",
+                "titulo": "Vasos"
+            },
+            {
+                "link": "https://amzn.to/429phyu",
+                "imagem": "produtos/Anatomia true crime dos filme.jpg",
+                "titulo": "Anatomia True Crime"
+            },
+            {
+                "link": "https://amzn.to/3C0ilsW",
+                "imagem": "produtos/Arquivos Serial Killers Louco ou Cruel.jpg",
+                "titulo": "Arquivos Serial Killers"
+            },
+            {
+                "link": "https://s.shopee.com.br/3VUUk22nQg",
+                "imagem": "produtos/bolsa.jpeg",
+                "titulo": "Bolsa"
+            },
+            {
+                "link": "https://mercadolivre.com/sec/2zN82Ad",
+                "imagem": "produtos/Bolsa2.jpg",
+                "titulo": "Bolsa para faculdade"
+            },
+            {
+                "link": "https://s.shopee.com.br/AUeEncvCac",
+                "imagem": "produtos/escova secadora.jpeg",
+                "titulo": "Escova Secadora"
+            },
+            {
+                "link": "https://mercadolivre.com/sec/15ECAZ3",
+                "imagem": "produtos/Estojo.png",
+                "titulo": "Estojo"
+            },
+            {
+                "link": "https://s.shopee.com.br/2qEneaVrNS",
+                "imagem": "produtos/kit garrafa.jpeg",
+                "titulo": "Kit 3 Garrafas"
+            },
+            {
+                "link": "https://mercadolivre.com/sec/1ctbXqe",
+                "imagem": "produtos/lancheira.jpg",
+                "titulo": "Lancheira Termica Neopreme"
+            },
+            {
+                "link": "https://amzn.to/3DPyW36",
+                "imagem": "produtos/Modus operandi.jpg",
+                "titulo": "Modus Operandi"
+            },
+            {
+                "link": "https://s.shopee.com.br/gAJ6UwqH6",
+                "imagem": "produtos/organizador.jpeg",
+                "titulo": "Organizador de armário"
+            },
+            {
+                "link": "https://s.shopee.com.br/1VjK7yCOdk",
+                "imagem": "produtos/blusacombinando.jpg",
+                "titulo": "Blusa de casal Mcquenn"
+            },
+            {
+                "link": "https://s.shopee.com.br/7pdLQJsCSH",
+                "imagem": "produtos/espelho.jpeg",
+                "titulo": "Espelho"
+            },
+            {
+                "link": "https://s.shopee.com.br/20fainHJg4",
+                "imagem": "produtos/pijama hp.jpg",
+                "titulo": "Pijama Harry Potter"
+            },
+            {
+                "link": "https://s.shopee.com.br/AA1GDKsm7e",
+                "imagem": "produtos/luminaria.jpeg",
+                "titulo": "Luminária"
+            },
+            {
+                "link": "https://s.shopee.com.br/2LIUEkVDXr",
+                "imagem": "produtos/triturador.png",
+                "titulo": "Triturador"
+            },
+            {
+                "link": "https://s.shopee.com.br/6AVFdiwsr7",
+                "imagem": "produtos/depilador.jpeg",
+                "titulo": "Depilador elétrico"
+            },
+            {
+                "link": "https://amzn.to/4fTWkcW",
+                "imagem": "produtos/anatomia do mal.png",
+                "titulo": "Serial killers - Anatomia do Mal"
+            },
+            {
+                "link": "https://amzn.to/4haozoQ",
+                "imagem": "produtos/teddy pund.png",
+                "titulo": "Ted Bundy: Um Estranho ao Meu Lado"
+            },
+            {
+                "link": "https://s.shopee.com.br/6AVJXDqd0K",
+                "imagem": "produtos/Apontador eletrico.jpeg",
+                "titulo": "Apontador eletrico"
+            },
+            {
+                "link": "https://s.shopee.com.br/4VN5YBnMjQ",
+                "imagem": "produtos/caixinha de som com microfone.jpeg",
+                "titulo": "caixinha de som com microfone"
+            },
+            {
+                "link": "https://s.shopee.com.br/8UtEJWxhdQ",
+                "imagem": "produtos/caneta com carimbo.jpeg",
+                "titulo": "caneta com carimbo"
+            },
+            {
+                "link": "https://s.shopee.com.br/VqwmobMTg",
+                "imagem": "produtos/guilhotina de papel.jpeg",
+                "titulo": "guilhotina de papel"
+            },
+            {
+                "link": "https://s.shopee.com.br/5AcmLOoOUC",
+                "imagem": "produtos/kit 3 carimbos de professor.jpeg",
+                "titulo": "kit 3 carimbos de professor"
+            },
+            {
+                "link": "https://s.shopee.com.br/ugCH00f4",
+                "imagem": "produtos/kit de cozinha corte.jpeg",
+                "titulo": "kit de cozinha corte"
+            },
+            {
+                "link": "https://s.shopee.com.br/AKKsVFzR3p",
+                "imagem": "produtos/lampada de led.jpeg",
+                "titulo": "lampada de led"
+            },
+            {
+                "link": "https://s.shopee.com.br/10nDO64AWQ",
+                "imagem": "produtos/luminaria de mesa.jpeg",
+                "titulo": "luminaria de mesa"
+            },
+            {
+                "link": "https://s.shopee.com.br/8UtEJuKRns",
+                "imagem": "produtos/movel para lado da cama.jpeg",
+                "titulo": "movel para lado da cama"
+            },
+            {
+                "link": "https://s.shopee.com.br/3Arhy6D7D6",
+                "imagem": "produtos/utensilios de cozinha de silicone.jpeg",
+                "titulo": "utensilios de cozinha de silicone"
+            },
+            {
+                "link": "https://mercadolivre.com/sec/2XZhAQy",
+                "imagem": "produtos/fone_de_ouvido_grande.png",
+                "titulo": "fone de ouvido grande"
+            },
+            {
+                "link": "https://mercadolivre.com/sec/2RsCpEH",
+                "imagem": "produtos/fone_de_ouvido_par.png",
+                "titulo": "fone de ouvido par"
+            },
+            {
+                "link": "https://mercadolivre.com/sec/2XW72Pe",
+                "imagem": "produtos/relogio_feminino_e_masculino.png",
+                "titulo": "relogio feminino e masculino"
+            },
+            {
+                "link": "https://mercadolivre.com/sec/2yWpyfc",
+                "imagem": "produtos/short_saia.png",
+                "titulo": "short saia"
+            },
+            {
+                "link": "https://mercadolivre.com/sec/1KCiQbh",
+                "imagem": "produtos/top_com_ziper.png",
+                "titulo": "top com ziper"
+            },
+            {
+                "link": "https://amzn.to/4gKp2yi",
+                "imagem": "produtos/Em_rota_de_colisão.png",
+                "titulo": "Em rota de colisão"
+            },
+            {
+                "link": "https://amzn.to/3Cefa0D",
+                "imagem": "produtos/No_calor_do_momento.png",
+                "titulo": "No calor do momento"
+            },
+            {
+                "link": "https://amzn.to/4fTaF9J",
+                "imagem": "produtos/atras_da_rede.png",
+                "titulo": "atrás da rede"
+            },
+            {
+                "link": "https://amzn.to/40bAlIH",
+                "imagem": "produtos/quebrando_o_gelo.png",
+                "titulo": "Quebrando o gelo"
+            },
+            {
+                "link": "https://amzn.to/4acLX2U",
+                "imagem": "produtos/sapatilhas_de_gelo.png",
+                "titulo": "sapatilhas de gelo"
+            },
+            {
+                "link": "https://amzn.to/40fETOk",
+                "imagem": "produtos/MilpartesDoMeuCoracao.png",
+                "titulo": "As mil partes do meu coração"
+            },
+            {
+                "link": "https://s.shopee.com.br/1LQ8EmO7xQ",
+                "imagem": "produtos/CABECEIRA.jpeg",
+                "titulo": "Cabeceira de Cama Casal"
+            },
+            {
+                "link": "https://s.shopee.com.br/9f5GAHVxNt",
+                "imagem": "produtos/CAPINHA_FONE.jpeg",
+                "titulo": "Capinha De Fone"
+            },
+            {
+                "link": "https://s.shopee.com.br/4L3joQIH57",
+                "imagem": "produtos/ESCOVA_ELETRICA.jpeg",
+                "titulo": "Escova De Limpeza Ajustável"
+            },
+            {
+                "link": "https://amzn.to/3WlqnDH",
+                "imagem": "produtos/KIT_HOPLES.png",
+                "titulo": "Kit Hopeless"
+            },
+            {
+                "link": "https://s.shopee.com.br/3q7TDcTJPE",
+                "imagem": "produtos/KIT_NECESSERIE.jpeg",
+                "titulo": "Kit 3 Necessaire"
+            },
+            {
+                "link": "https://s.shopee.com.br/4L3joYn0G8",
+                "imagem": "produtos/KIT_UNHA.jpeg",
+                "titulo": "Kit Alongamento"
+            },
+            {
+                "link": "https://mercadolivre.com/sec/2kzVoA6",
+                "imagem": "produtos/Kit_skin_care.png",
+                "titulo": "Kit Skincare Completo"
+            },
+            {
+                "link": "https://s.shopee.com.br/5Acqnr4KJB",
+                "imagem": "produtos/MESINHA_DE_CANTO.jpeg",
+                "titulo": "Kit Trio Jogo de Mesinhas"
+            },
+            {
+                "link": "https://s.shopee.com.br/2fvVpKuE1u",
+                "imagem": "produtos/MOB.jpeg",
+                "titulo": "Mop Spray Rodo Prático"
+            },
+            {
+                "link": "https://s.shopee.com.br/4L3joVTSCg",
+                "imagem": "produtos/MOCHILA_STITCH.jpeg",
+                "titulo": "Stitch Large Capacity"
+            },
+            {
+                "link": "https://amzn.to/4hiHqON",
+                "imagem": "produtos/O_LADO_FEIO_DO_AMOR.png",
+                "titulo": "O lado feio do amor"
+            },
+            {
+                "link": "https://s.shopee.com.br/3fo318TzSF",
+                "imagem": "produtos/PRATELEIRA_SUSPENSA.jpeg",
+                "titulo": "Prateleira de Madeira Suspensa"
+            },
+            {
+                "link": "https://s.shopee.com.br/9pOgMYNKZG",
+                "imagem": "produtos/SERUM_MELU.jpeg",
+                "titulo": "Sérum Facial Melu"
+            },
+            {
+                "link": "https://amzn.to/40y1XJD",
+                "imagem": "produtos/todasinperf.png",
+                "titulo": "Todas as suas (im)perfeições"
+            },
+            {
+                "link": "https://amzn.to/42g47Pq",
+                "imagem": "produtos/VERITY.png",
+                "titulo": "Verity"
+            },
+            {
+                "link": "https://mercadolivre.com/sec/2T43tij",
+                "imagem": "produtos/kit_de_maquiagem.png",
+                "titulo": "Kit Maquiagem"
+            },
+            {
+                "link": "https://mercadolivre.com/sec/2s9VCCm",
+                "imagem": "produtos/mascara_lola.png",
+                "titulo": "Máscara Lola"
+            },
+            {
+                "link": "https://mercadolivre.com/sec/2Zr3EWu",
+                "imagem": "produtos/prancha_para_cabelos.png",
+                "titulo": "Chapinha/Prancha de cabelo Gama"
+            },
+            {
+                "link": "https://mercadolivre.com/sec/2EF45da",
+                "imagem": "produtos/secador.png",
+                "titulo": "Secador Super Hair"
+            }
+        ];
+
         const productGrid = document.getElementById('product-grid');
+        const searchInput = document.getElementById('search-input');
+        const loader = document.getElementById('loader');
+        const backToTop = document.getElementById('back-to-top');
 
-        produtos.forEach(produto => {
-            const productCard = document.createElement('a');
-            productCard.href = produto.link;
-            productCard.target = '_blank';
-            productCard.classList.add('product-card');
+        // Identificar a origem do produto
+        function getProductSource(link) {
+            if (link.includes('shopee')) return 'Shopee';
+            if (link.includes('amzn') || link.includes('amazon')) return 'Amazon';
+            if (link.includes('mercadolivre') || link.includes('mercado')) return 'Mercado Livre';
+            return 'Desconhecido';
+        }
 
-            productCard.innerHTML = `
-                <img src="${produto.imagem}" alt="${produto.titulo}">
-                <h3>${produto.titulo}</h3>
-            `;
+        // Renderizar produtos
+        function renderProducts(filter = 'all', searchTerm = '') {
+            productGrid.classList.remove('fade-in');
+            productGrid.classList.add('fade-out');
+            setTimeout(() => {
+                productGrid.innerHTML = '';
+                const filteredProducts = produtos.filter(produto => {
+                    const matchesFilter = filter === 'all' || getProductSource(produto.link).toLowerCase().includes(filter);
+                    const matchesSearch = produto.titulo.toLowerCase().includes(searchTerm.toLowerCase());
+                    return matchesFilter && matchesSearch;
+                });
 
-            productGrid.appendChild(productCard);
+                if (filteredProducts.length === 0) {
+                    productGrid.innerHTML = '<p style="text-align: center; color: #d4006b; font-size: 1.2em;">Nenhum produto encontrado!</p>';
+                    productGrid.classList.remove('fade-out');
+                    productGrid.classList.add('fade-in');
+                    return;
+                }
+
+                filteredProducts.forEach((produto, index) => {
+                    const productCard = document.createElement('div');
+                    productCard.classList.add('product-card');
+                    productCard.style.animationDelay = `${index * 0.1}s`;
+                    productCard.innerHTML = `
+                        <a href="${produto.link}" target="_blank">
+                            <div class="product-image">
+                                <img src="${produto.imagem}" alt="${produto.titulo}" onerror="this.src='https://via.placeholder.com/250x200?text=Imagem+Não+Encontrada'; console.log('Erro ao carregar imagem: ${produto.imagem}');">
+                            </div>
+                        </a>
+                        <div class="product-info">
+                            <h3>${produto.titulo}</h3>
+                            <p class="product-source">${getProductSource(produto.link)}</p>
+                        </div>
+                    `;
+                    productGrid.appendChild(productCard);
+                });
+
+                productGrid.classList.remove('fade-out');
+                productGrid.classList.add('fade-in');
+            }, 300);
+        }
+
+        // Filtrar produtos por aba
+        function filterProducts(source) {
+            document.querySelectorAll('.tab').forEach(tab => tab.classList.remove('active'));
+            event.target.classList.add('active');
+            loader.style.display = 'flex';
+            productGrid.style.display = 'none';
+            setTimeout(() => {
+                renderProducts(source, searchInput.value);
+                loader.style.display = 'none';
+                productGrid.style.display = 'grid';
+            }, 500);
+        }
+
+        // Pesquisar produtos
+        function searchProducts() {
+            const activeTab = document.querySelector('.tab.active').getAttribute('onclick').match(/'([^']+)'/)[1];
+            loader.style.display = 'flex';
+            productGrid.style.display = 'none';
+            setTimeout(() => {
+                renderProducts(activeTab, searchInput.value);
+                loader.style.display = 'none';
+                productGrid.style.display = 'grid';
+            }, 500);
+        }
+
+        // Back to Top
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 300) {
+                backToTop.style.display = 'block';
+            } else {
+                backToTop.style.display = 'none';
+            }
         });
+
+        backToTop.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+        // Inicializar
+        window.onload = function() {
+            loader.style.display = 'flex';
+            setTimeout(() => {
+                renderProducts('all', '');
+                loader.style.display = 'none';
+                productGrid.style.display = 'grid';
+            }, 1000);
+            searchInput.addEventListener('input', searchProducts);
+        };
     </script>
 </body>
 </html>
